@@ -1,4 +1,4 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
@@ -27,10 +27,16 @@ const authenticateToken = (req: CustomRequest, res: Response, next: NextFunction
 };
 
 const generateTokenService = (userId: string, userRole: string) => {
-    return jwt.sign({ id: userId, role: userRole }, process.env.JWT_SECRET as string, {
-        expiresIn: process.env.JWT_EXPIRES_IN
-    });
+    const options: Record<string, any> = {
+        expiresIn: process.env.JWT_EXPIRES_IN as string | number | undefined,
+    };
+    return jwt.sign(
+        { id: userId, role: userRole },
+        process.env.JWT_SECRET as string,
+        options
+    );
 };
+
 
 const hashPassword = async (newPassword: string) => {
     const salt = await bcrypt.genSalt(10);
