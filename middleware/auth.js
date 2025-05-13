@@ -28,7 +28,6 @@ const hashPassword = async (newPassword) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
     return hashedPassword
-
 };
 
 const isAdmin = (req, res, next) => {

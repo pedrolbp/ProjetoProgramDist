@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connectDB = async (): Promise<void> => {
+const connectDB = async () => {
   try {
     const mongoURI = process.env.MONGO_URI;
 
@@ -14,8 +14,7 @@ const connectDB = async (): Promise<void> => {
 
     await mongoose.connect(mongoURI);
     console.log('Aplicação conectada ao MongoDB.');
-
-  } catch (error: any) {
+  } catch (error) {
     console.error('Erro ao conectar com MongoDB:', error.message);
     process.exit(1);
   }
