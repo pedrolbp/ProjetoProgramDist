@@ -7,7 +7,6 @@ import {
 
 import { confirmTokenController } from '../controllers/emailController.js';
 import { authenticateToken } from '../middleware/auth.js';
-import { uploadMiddleware } from '../middleware/handlerMiddleware.js';
 
 const router = express.Router();
 
