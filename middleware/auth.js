@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-exports.authenticateToken = (req, res, next) => {
+const authenticateToken = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
 
     if (!token) {
@@ -22,7 +22,7 @@ exports.authenticateToken = (req, res, next) => {
 
 
 
-exports.isAdmin = (req, res, next) => {
+const isAdmin = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) {
         return res.status(401).json({ message: 'Access Denied' });
@@ -40,3 +40,5 @@ exports.isAdmin = (req, res, next) => {
         return res.status(403).json({error: err.message});
     };
 };
+
+export { authenticateToken, isAdmin };
