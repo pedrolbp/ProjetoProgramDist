@@ -26,11 +26,11 @@ const loginUserService = async (emailAsLogin, password) => {
         throw new Error('Invalid credentials');
     }
 
-    if (user.password !== password) {
+    else if (user.password !== password) {
         throw new Error('Invalid credentials');
     }
 
-    if (!user.emailConfirmed) {
+    else if (!user.emailConfirmed) {
         throw new Error('User not confirmed yet. Please confirm your email.');
     }
     
@@ -43,7 +43,7 @@ const forgotPasswordService = async (emailAsLogin) => {
     const user = await User.findOne({ login: emailAsLogin });
 
     if (!user) {
-        throw new Error('User with this login not found');
+        throw new Error(`If a user with login ${emailAsLogin} exists, further instructions for password reset would be processed here.`);
     }
 
     return { message: `If a user with login ${emailAsLogin} exists, further instructions for password reset would be processed here.` };
