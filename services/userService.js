@@ -10,7 +10,7 @@ const registerUserService = async (name, password, emailAsLogin) => {
         throw new Error('User with this login already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);//hash da senha
+    const hashedPassword = await hashPassword(password);//hash da senha
 
     const newUser = new User({
         name,
@@ -42,11 +42,7 @@ const loginUserService = async (emailAsLogin, password) => {
     }
 
     // gera o token JWT
-    const token = jwt.sign(
-        { id: user._id, login: user.login },
-        JWT_SECRET,
-        { expiresIn: '1h' }
-    );
+    const token = generateTokenService(user._id, user.role);
 
     const userObject = user.toObject();
     delete userObject.password;
